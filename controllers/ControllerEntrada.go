@@ -24,7 +24,7 @@ func NewEntranceController(win *pixelgl.Window, mut *sync.Mutex) *EntranceContro
 	}
 }
 
-//aqui carga las img de los estados que estamo utilizando en la vista
+//carga las img de los estados que estamo utilizando en la vista
 func (ec *EntranceController) LoadStates() {
 	imgs := ec.view.LoadStatesImages()
 	ec.view.SetStateImages(imgs)

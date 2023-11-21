@@ -57,7 +57,7 @@ func (cp *ControllerParking) Park(chMoto *chan models.Moto, entranceController *
 	}
 }
 
-// aqui se actualiza el estado del controlador de entrada
+//se actualiza el estado del controlador de entrada
 func (cp *ControllerParking) ChangingState(chEntrance *chan int, entranceController *EntranceController) {
 	for change := range *chEntrance {
 		entranceController.model.SetState(change)
