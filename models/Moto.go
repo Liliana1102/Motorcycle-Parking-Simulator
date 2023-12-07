@@ -16,7 +16,7 @@ type Moto struct {
 
 func NewMoto() *Moto {
 	rand.Seed(time.Now().UnixNano())
-	parkingTime := rand.Intn(10) + 15
+	parkingTime := rand.Intn(10) + 15 
 	return &Moto{ParkingTime: parkingTime}
 }
 
@@ -54,7 +54,7 @@ func enterParkingLot(pos int, pc *Parking, mut *sync.Mutex, chEntrance *chan int
 func parkMoto(c *Moto, pos int, pc *Parking, mut *sync.Mutex, spaces *[20]bool, chEntrance *chan int, sprite *pixel.Sprite, chWin chan utils.ImgMoto, coo pixel.Vec) {
 	mut.Lock()
 	pc.nSpaces--
-	fmt.Printf("Estac. %d: %d\n", c.Id, pos)
+	fmt.Printf("Estacionamiento. %d: %d\n", c.Id, pos)
 	fmt.Printf("Disponibles: %d\n", pc.nSpaces)
 	mut.Unlock()
 

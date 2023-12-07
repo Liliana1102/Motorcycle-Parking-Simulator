@@ -15,7 +15,6 @@ type ControllerParking struct {
 	mut    *sync.Mutex
 }
 
-//creando una nueva instancia
 func NewControllerParking(win *pixelgl.Window, mut *sync.Mutex) *ControllerParking {
 	model := models.NewParking()
 	view := views.NewViewParking(win)
@@ -26,27 +25,21 @@ func NewControllerParking(win *pixelgl.Window, mut *sync.Mutex) *ControllerParki
 	}
 }
 
-
 func (cp *ControllerParking) PaintParking() {
 	cp.view.PaintParking()
 }
 
-func (cp *ControllerParking) PaintStreet() {
-	cp.view.PaintStreet()
-}
-
-//gestionamos el estacionamiento de M.
 func (cp *ControllerParking) Park(chMoto *chan models.Moto, entranceController *EntranceController, ControllerMoto *ControllerMoto, chEntrance *chan int, chWin chan utils.ImgMoto) {
 	go cp.ChangingState(chEntrance, entranceController)
 
 	for moto := range *chMoto {
-		pos := cp.model.FindSpaces()//encuentra un espacio dispo.
+		pos := cp.model.FindSpaces()
 		if pos != -1 {
-			coo := cp.view.GetCoordinates(pos)//odteniendo las coordenadas del espacio.
+			coo := cp.view.GetCoordinates(pos)
 			ControllerMoto.view.SetSprite()
 			sprite := ControllerMoto.view.PaintMoto(coo)
 
-			state := entranceController.model.GetState()// odtiene el estado del contro de la entrada
+			state := entranceController.model.GetState()
 			if state == "Parado" || state == "Entrando" {
 				go moto.Timer(pos, cp.model, cp.mut, cp.model.GetAllSpaces(), chEntrance, sprite, chWin, coo)
 			} else {
@@ -57,7 +50,6 @@ func (cp *ControllerParking) Park(chMoto *chan models.Moto, entranceController *
 	}
 }
 
-//se actualiza el estado del controlador de entrada
 func (cp *ControllerParking) ChangingState(chEntrance *chan int, entranceController *EntranceController) {
 	for change := range *chEntrance {
 		entranceController.model.SetState(change)

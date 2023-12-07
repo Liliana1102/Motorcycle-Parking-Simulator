@@ -35,13 +35,12 @@ func NewSimulation() *Simulation {
 	if err != nil {
 		panic(err)
 	}
-	//inicializa los c y m
+	
 	motoChannel := make(chan models.Moto, 100)
 	entranceChannel := make(chan int)
 	winChannel := make(chan utils.ImgMoto)
 	mut := &sync.Mutex{}
 
-	//retorna una nueva instancia de S.
 	return &Simulation{
 		win:             win,
 		motoChannel:      motoChannel,
@@ -59,7 +58,6 @@ func (s *Simulation) Init() {
 	s.entranceCtrl.LoadStates()
 }
 
-//inicilizando las rutinas del estac.
 func (s *Simulation) Run() {
 	go s.parkingCtrl.Park(&s.motoChannel, s.entranceCtrl, s.motoCtrl, &s.entranceChannel, s.winChannel)
 	go s.motoCtrl.GenerateMotos(100, &s.motoChannel)
@@ -68,7 +66,7 @@ func (s *Simulation) Run() {
 		s.win.Clear(colornames.Black)
 
 		s.parkingCtrl.PaintParking()
-		s.parkingCtrl.PaintStreet()
+		
 
 		s.handleWinChannel()
 
@@ -80,7 +78,6 @@ func (s *Simulation) Run() {
 	}
 }
 
-//Agrega y elimina el sprite de la moto
 func (s *Simulation) handleWinChannel() {
 	select {
 	case val := <-s.winChannel:
@@ -92,7 +89,6 @@ func (s *Simulation) handleWinChannel() {
 	}
 }
 
-//elimina un sprite de moto
 func (s *Simulation) removeMotoSprite(val utils.ImgMoto) {
 	var arrAux []utils.ImgMoto
 	for _, value := range s.motoSprites {
@@ -103,7 +99,6 @@ func (s *Simulation) removeMotoSprite(val utils.ImgMoto) {
 	s.motoSprites = s.motoSprites[:0]
 	s.motoSprites = append(s.motoSprites, arrAux...)
 }
-//aqui es donde dibuja una moto en la ventana
 func (s *Simulation) drawMotoSprite(value utils.ImgMoto) {
 	sprite := value.GetSprite()
 	pos := value.GetPosition()

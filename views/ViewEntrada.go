@@ -8,7 +8,7 @@ import (
 
 type ViewEntrada struct {
 	win    *pixelgl.Window
-	utils  *utils.Utils
+	utils  *utils.ImageUtils
 	states [3]pixel.Sprite
 }
 

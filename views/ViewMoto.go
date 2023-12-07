@@ -8,7 +8,7 @@ import (
 
 type ViewMoto struct {
 	win    *pixelgl.Window
-	utils  *utils.Utils
+	utils  *utils.ImageUtils
 	sprite *pixel.Sprite
 }
 

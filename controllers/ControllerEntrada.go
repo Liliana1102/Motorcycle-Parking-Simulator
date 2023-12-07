@@ -8,14 +8,12 @@ import (
 	"github.com/faiface/pixel/pixelgl"
 )
 
-//Entrada y representación gráfica
 type EntranceController struct {
 	model *models.Entrada 
 	view  *views.ViewEntrada
 	mut    *sync.Mutex
 }
 
-//creación de una new instancia
 func NewEntranceController(win *pixelgl.Window, mut *sync.Mutex) *EntranceController {
 	return &EntranceController{
 		model: models.NewEntrada(),
@@ -24,7 +22,6 @@ func NewEntranceController(win *pixelgl.Window, mut *sync.Mutex) *EntranceContro
 	}
 }
 
-//carga las img de los estados que estamo utilizando en la vista
 func (ec *EntranceController) LoadStates() {
 	imgs := ec.view.LoadStatesImages()
 	ec.view.SetStateImages(imgs)

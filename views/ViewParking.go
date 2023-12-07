@@ -8,7 +8,7 @@ import (
 
 type ViewParking struct {
 	win            *pixelgl.Window
-	utils          *utils.Utils
+	utils          *utils.ImageUtils
 	spaces         [20]pixel.Vec
 	questionSpaces [20]pixel.Vec
 }
@@ -44,16 +44,7 @@ func (vp *ViewParking) PaintParking() {
 	parking.Draw(vp.win, matrix)
 }
 
-func (vp *ViewParking) PaintStreet() {
-	picStreet, err := vp.utils.LoadPicture("./assets/estacionamiento.png")
-	if err != nil {
-		panic(err)
-	}
 
-	street := vp.utils.NewSprite(picStreet, picStreet.Bounds())
-
-	street.Draw(vp.win, pixel.IM.Moved(pixel.V(512, 70)))
-}
 
 func (vp *ViewParking) GetCoordinates(n int) pixel.Vec {
 	return vp.spaces[n]
